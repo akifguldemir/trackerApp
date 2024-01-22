@@ -7,36 +7,55 @@ import RecentExpenses from "./screens/RecentExpenses";
 import AllExpenses from "./screens/AllExpenses";
 import { GlobalStyles } from "./constants/styles";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from "@expo/vector-icons";
 import IconButton from "./components/UI/IconButton";
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 function ExpensesOverview() {
   return (
-    <BottomTabs.Navigator screenOptions={{
-      headerStyle: { backgroundColor: GlobalStyles.colors.primary500},
-      headerTintColor: 'white',
-      tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500},
-      tabBarActiveTintColor: GlobalStyles.colors.accent500,
-      headerRight: ({tintColor}) => {
-        return <IconButton icon="add" size={24} color={tintColor} onPress={() => {}}/>
-      }
-    }}>
-      <BottomTabs.Screen name="RecentExpenses" component={RecentExpenses} options={{
-        headerTitle: 'Recent Expenses',
-        tabBarLabel: 'Recent',
-        tabBarIcon: ({color, size}) => {
-          return <Ionicons name="hourglass" color={color} size={size}/>
-        }
-      }}/>
-      <BottomTabs.Screen name="AllExpenses" component={AllExpenses} options={{
-        headerTitle: 'All Expenses',
-        tabBarLabel: 'All Expenses',
-        tabBarIcon: ({color, size}) => {
-          return <Ionicons name="calendar" color={color} size={size}/>
-        }
-      }}/>
+    <BottomTabs.Navigator
+      screenOptions={({ navigation }) => ({
+        headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+        headerTintColor: "white",
+        tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+        tabBarActiveTintColor: GlobalStyles.colors.accent500,
+        headerRight: ({ tintColor }) => {
+          return (
+            <IconButton
+              icon="add"
+              size={24}
+              color={tintColor}
+              onPress={() => {
+                navigation.navigate("ManageExpense");
+              }}
+            />
+          );
+        },
+      })}
+    >
+      <BottomTabs.Screen
+        name="RecentExpenses"
+        component={RecentExpenses}
+        options={{
+          headerTitle: "Recent Expenses",
+          tabBarLabel: "Recent",
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="hourglass" color={color} size={size} />;
+          },
+        }}
+      />
+      <BottomTabs.Screen
+        name="AllExpenses"
+        component={AllExpenses}
+        options={{
+          headerTitle: "All Expenses",
+          tabBarLabel: "All Expenses",
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="calendar" color={color} size={size} />;
+          },
+        }}
+      />
     </BottomTabs.Navigator>
   );
 }
@@ -46,7 +65,12 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+            headerTintColor: "white",
+          }}
+        >
           <Stack.Screen
             name="ExpensesOverview"
             component={ExpensesOverview}
@@ -54,7 +78,9 @@ export default function App() {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="ManageExpense" component={ManageExpense} />
+          <Stack.Screen name="ManageExpense" component={ManageExpense} options={{
+            presentation: 'modal',
+          }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>
