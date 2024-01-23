@@ -7,8 +7,8 @@ function Input({ label, style, invalid, textInputConfig }) {
   if (textInputConfig && textInputConfig.multiline) {
     inputStyles.push(styles.inputMultiline);
   }
-  if(invalid) {
-    inputStyles.push(styles.invalidInput)
+  if (invalid) {
+    inputStyles.push(styles.invalidInput);
   }
   return (
     <View style={[styles.inputContainer, style]}>
